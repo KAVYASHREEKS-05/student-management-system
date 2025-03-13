@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    {% load static %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: url("https://diversecharters.org/wp-content/uploads/2020/07/schoolkids-scaled.jpg") no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.21);
+            max-width: 400px;
+            width: 100%;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.6s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .container h2 {
+            color: rgba(255, 255, 255, 0.33);
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 50%;
+            left: 16px;
+            font-size: 16px;
+            color: white;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            color: #333;
+            background-color: rgba(249, 249, 249, 0.22);
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #4CAF50;
+            background-color: rgba(255, 255, 255, 0.23);
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label {
+            top: -12px;
+            font-size: 14px;
+            color: #4CAF50;
+        }
+
+        .form-group input:focus + label,
+        .form-group input:valid + label {
+            top: -12px;
+            font-size: 14px;
+            color: #4CAF50;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:active {
+            background-color: #388e3c;
+        }
+
+        .errorlist {
+            color: #FF4C4C;
+            font-size: 14px;
+            margin-top: 5px;
+            padding-left: 20px;
+            list-style-type: none;
+        }
+
+        .errorlist li {
+            margin-bottom: 5px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <h2>Login</h2>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                {{ form.email }}
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                {% if form.email.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.email.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                {{ form.password }}
+                <label for="{{ form.password.id_for_label }}">Password</label>
+                {% if form.password.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.password.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <!-- User ID Field (Optional) -->
+            <div class="form-group">
+                {{ form.user_id }}
+                <label for="{{ form.user_id.id_for_label }}">User ID (For Student)</label>
+                {% if form.user_id.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.user_id.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+</body>
+</html>

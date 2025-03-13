@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1E1E2E;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        /* Header Styling */
+        /* Header Styling */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #282A36;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        
+        /* Header Title */
+        .header h1 {
+            color: #28a745;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        /* Logout Button */
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        /* Hover & Active Effects */
+        .logout-btn:hover {
+            background: #c82333;
+            transform: scale(1.05);
+        }
+        
+        .logout-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+        
+            .logout-btn {
+                margin-top: 10px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            gap: 20px;
+            background: #282A36;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Profile Section */
+.profile {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    background: linear-gradient(145deg, #353849, #252631);
+    border-radius: 12px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+/* Hover Effect */
+.profile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0, 255, 128, 0.3);
+}
+
+/* Profile Image */
+.profile img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #28a745;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Zoom Effect Inside Circle */
+.profile:hover img {
+    transform: scale(1.2);
+}
+
+/* Profile Text */
+.profile p {
+    font-size: 16px;
+    color: #ddd;
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+/* Profile Name Highlight */
+.profile p strong {
+    color: #28a745;
+    font-weight: bold;
+}
+
+        /* Assignments Section */
+        .assignments {
+            flex: 2;
+            padding: 20px;
+            background: #2E2F3E;
+            border-radius: 12px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+        .assignments h3 {
+            color: #f8f8f8;
+            margin-bottom: 15px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #3B3C4A;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        th, td {
+            padding: 14px;
+            border-bottom: 1px solid #444;
+            text-align: center;
+            color: #f8f8f8;
+        }
+        th {
+            background: #28a745;
+            color: white;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+        tr:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+        /* File Input Custom Styling */
+.file-upload {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-upload input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-upload label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.file-upload label:hover {
+    background: #28a745;
+    transform: scale(1.05);
+}
+
+.file-upload label:active {
+    transform: scale(0.98);
+}
+
+/* Selected File Name */
+.file-name {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #b0b0b0;
+}
+
+
+        /* Links */
+        a {
+            text-decoration: none;
+            color:  #28a745;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #28a745;
+        }
+
+        /* Buttons */
+        button {
+            background: #28a745;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.3s ease;
+        }
+        button:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+        /* Overall ID Card Style */
+        .id-card {
+            width: 350px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #0073e6; /* School-themed blue border */
+            background: #ffffff; /* Clean white background */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add some shadow for realism */
+            font-family: 'Arial', sans-serif;
+            color: #333; /* Darker text for readability */
+        }
+        
+        /* Image style for the profile picture */
+        .id-card-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #0073e6; /* Match the border with the ID card theme */
+            margin-bottom: 15px;
+        }
+        
+        /* Modal background */
+        .modal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Darken the background for better focus */
+            z-index: 9999;
+        }
+        
+        /* Modal content */
+        .modal-content {
+            background: #f8f9fa; /* Light background for the modal */
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            width: 400px; /* Increase width for a more spacious look */
+            max-width: 90%; /* Make it responsive */
+        }
+        
+        /* Close button style */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #0073e6;
+            cursor: pointer;
+        }
+        
+        /* Button to print ID card */
+        .btn {
+            background-color: #28a745; /* Green background for the button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        .btn:hover {
+            background-color: #218838; /* Darker green when hovered */
+        }
+        
+        
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+        @media (max-width: 768px) {
+            .assignments table {
+                font-size: 12px; /* Smaller font size for mobile */
+                display: block;
+                width: 100%;
+                overflow-x: auto; /* Horizontal scroll if content overflows */
+            }
+        
+            .assignments th, .assignments td {
+                display: inline-block;
+                width: 100%;
+                text-align: left;
+            }
+        
+            .assignments th {
+                background: #28a745;
+            }
+        
+            .file-upload {
+                width: 100%;
+            }
+        
+            .file-upload input[type="file"] {
+                padding: 5px;
+            }
+        
+            .file-upload label {
+                width: 100%;
+            }
+        
+            .file-name {
+                font-size: 12px;
+            }
+        }
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 15px;
+                width: 90%; /* Ensure modal width adapts to smaller screens */
+            }
+        
+            .id-card {
+                width: 100%; /* Ensure full width */
+                padding: 15px;
+                gap: 15px; /* Adjust space between elements */
+            }
+        
+            .id-card h2 {
+                font-size: 20px;
+            }
+        
+            .id-card p {
+                font-size: 14px;
+            }
+        
+            .id-card .id-card-image {
+                width: 120px;
+                height: 120px;
+            }
+        
+            .btn {
+                width: 100%; /* Make buttons full width */
+                padding: 12px;
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .modal-content {
+                padding: 10px;
+                width: 95%; /* Ensure the modal stays within the screen width */
+            }
+        
+            .id-card {
+                width: 95%; /* Ensure the card doesn't overflow */
+                padding: 10px;
+                gap: 10px;
+            }
+        
+            .id-card h2 {
+                font-size: 18px;
+            }
+        
+            .id-card p {
+                font-size: 12px;
+            }
+        
+            .id-card .id-card-image {
+                width: 100px;
+                height: 100px;
+            }
+        
+            .btn {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Student Dashboard</h1>
+        <button onclick="showIdCard()" class="btn btn-primary">View ID Card</button>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </header>
+    
+
+    <div class="container">
+        <!-- Student Profile Section -->
+        <div class="profile">
+            <h2>Student Profile</h2>
+            <img src="{{ student.photo.url }}" alt="Student Photo">
+            <p><strong>Name:</strong> {{ student.name }}</p>
+            <p><strong>Email:</strong> {{ student.email }}</p>
+            <p><strong>Phone:</strong> {{ student.phone }}</p>
+            <p><strong>Address:</strong> {{ student.address }}</p>
+        </div>
+        <div id="idCardModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span onclick="closeIdCard()" class="close">&times;</span>
+                <div id="idCard" class="id-card">
+                    <img src="{{ student.photo.url }}" alt="Profile Image" class="id-card-image">
+                    <h2>Student ID Card</h2>
+                    <p><strong>Name:</strong> {{ student.name }}</p>
+                    <p><strong>USN:</strong> {{ student.user_id }}</p>
+                    <p><strong>Email:</strong> {{ student.email }}</p>
+                    <p><strong>Phone:</strong> {{ student.phone }}</p>
+                    <p><strong>Address:</strong> {{ student.address }}</p>
+                    
+                </div>
+                <button onclick="printIdCard()" class="btn">Print ID Card</button>
+                
+                <button onclick="goBackToDashboard()" class="btn btn-secondary">Back</button>
+            </div>
+        </div>
+        
+        
+        <!-- Assignments Section -->
+        <div class="assignments">
+            <h3>Your Assignments</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Uploaded By</th>
+                        <th>Download</th>
+                        <th>Submission</th>
+                        <th>Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for assignment in assignments %}
+                        <tr>
+                            <td>{{ assignment.title }}</td>
+                            <td>{{ assignment.teacher }}</td>
+                            <td><a href="{{ assignment.pdf.url }}" download>Download</a></td>
+                            <td>
+                                {% if assignment.student_submission %}
+                                    <a href="{{ assignment.student_submission.url }}" download>View</a>
+                                    <p>({{ assignment.submitted_at }})</p>
+                                {% else %}
+                                    <form method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="assignment_id" value="{{ assignment.id }}">
+                                        <div class="file-upload">
+                                            <input type="file" name="student_submission" id="fileInput" required>
+                                            <label for="fileInput">Choose File</label>
+                                            <p class="file-name" id="fileName">No file chosen</p>
+                                        </div>                                    
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if assignment.marks is not None %}
+                                    {{ assignment.marks }}/10
+                                {% else %}
+                                    Not Graded
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        
+    </div>
+    <script>
+        function showIdCard() {
+            document.getElementById("idCardModal").style.display = "block";
+        }
+    
+        function closeIdCard() {
+            document.getElementById("idCardModal").style.display = "none";
+        }
+    
+        function printIdCard() {
+            var cardContent = document.getElementById("idCard").innerHTML;
+            var printWindow = window.open('', '', 'width=400,height=600');
+            printWindow.document.write('<html><head><title>Print ID Card</title></head><body>');
+            printWindow.document.write(cardContent);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+        function goBackToDashboard() {
+            window.location.href = "/student-dashboard/{{ student.user_id }}/";
+        }
+    </script>
+    
+</body>
+</html>
